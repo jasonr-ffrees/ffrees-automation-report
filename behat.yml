@@ -1,0 +1,9 @@
+default:
+  extensions:
+      jroy\HTMLReport\HTMLReportExtension:
+          name: html
+          renderer: Twig
+          file_name: Index
+          print_args: true
+          print_outp: true
+          loop_break: true
