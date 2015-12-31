@@ -411,7 +411,6 @@ class HTMLFormatter implements Formatter
         $feature->setDescription($event->getFeature()->getDescription());
         $feature->setTags($event->getFeature()->getTags());
         $feature->setFile($event->getFeature()->getFile());
-        $feature->setScreenshotName($event->getFeature()->getFile());
         $this->currentFeature = $feature;
 
         $print = $this->renderer->renderBeforeFeature($this);
