@@ -12,6 +12,8 @@ class Scenario
     private $line;
     private $tags;
     private $loopCount;
+    private $screenshotExists;
+    private $screenshotPath;
 
     /**
      * @var bool
@@ -37,6 +39,23 @@ class Scenario
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function setScreenshotProperties($base_path, $screenshotFolder, $featureName, $scenarioName)
+    {
+        $this->screenshotPath = $screenshotFolder . str_replace(' ', '', $featureName . '/' . str_replace(' ', '', $scenarioName) . '.png');
+        $absolutePath = $base_path . '/' . $this->screenshotPath;
+        $this->screenshotExists = file_exists($absolutePath);
+    }
+
+    public function doesScreenshotExist()
+    {
+        return $this->screenshotExists;
+    }
+
+    public function getScreenshotPath()
+    {
+        return $this->screenshotPath;
     }
 
     /**

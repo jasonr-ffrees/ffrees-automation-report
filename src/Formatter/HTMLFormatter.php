@@ -359,7 +359,6 @@ class HTMLFormatter implements Formatter
     public function onBeforeExercise(BeforeExerciseCompleted $event)
     {
         $this->timer->start();
-
         $print = $this->renderer->renderBeforeExercise($this);
         $this->printer->write($print);
     }
@@ -459,6 +458,7 @@ class HTMLFormatter implements Formatter
             $this->passedScenarios[] = $this->currentScenario;
             $this->currentFeature->addPassedScenario();
         } else {
+            $this->currentScenario->setScreenshotProperties($this->printer->getOutputPath(), 'assets/screenshots/', $event->getFeature()->getTitle(), $event->getScenario()->getTitle());
             $this->failedScenarios[] = $this->currentScenario;
             $this->currentFeature->addFailedScenario();
         }
