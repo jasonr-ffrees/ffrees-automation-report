@@ -192,6 +192,11 @@
                                                 {% if step.exception is not null %}
                                                     <br>
                                                     <p style="padding-left:2em ; color:gray">({{ step.exception }})</p>
+                                                    {% if scenario.doesScreenshotExist %}
+                                                        <a href="{{ scenario.getScreenshotPath }}">Screenshot</a>
+                                                    {% else %}
+                                                        <b>Screenshot not available</b>
+                                                    {% endif %}
                                                 {% endif %}
                                                 {% if step.output is not null %}
                                                     <br>
