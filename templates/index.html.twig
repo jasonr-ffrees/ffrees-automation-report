@@ -195,8 +195,8 @@
                                                     {% if scenario.doesScreenshotExist %}
                                                         <a href="{{ scenario.getScreenshotPath }}">Screenshot</a>
                                                     {% else %}
-                                                        <b>Screenshot not available</b>
-                                                        {{ scenario.getScreenshotPath }}
+                                                        <b title="Screenshot is not available, perhaps the failure was caused by a network error, in which case a screenshot will not be available">
+                                                            Screenshot not available</b>
                                                     {% endif %}
                                                 {% endif %}
                                                 {% if step.output is not null %}
