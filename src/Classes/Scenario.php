@@ -14,6 +14,7 @@ class Scenario
     private $loopCount;
     private $screenshotExists;
     private $screenshotPath;
+    private $failureStep;
 
     /**
      * @var bool
@@ -41,9 +42,9 @@ class Scenario
         $this->name = $name;
     }
 
-    public function setScreenshotProperties($base_path, $screenshotFolder, $featureName, $scenarioName)
+    public function setScreenshotProperties($base_path, $screenshotFolder, $featureName)
     {
-        $this->screenshotPath = $screenshotFolder . str_replace(' ', '', $featureName . '/' . str_replace(' ', '', $scenarioName) . '.png');
+        $this->screenshotPath = $screenshotFolder . str_replace(' ', '', $featureName . '/' . $this->getFailureStep() . '.png');
         $absolutePath = $base_path . '/' . $this->screenshotPath;
         $this->screenshotExists = file_exists($absolutePath);
     }
@@ -56,6 +57,16 @@ class Scenario
     public function getScreenshotPath()
     {
         return $this->screenshotPath;
+    }
+
+    public function setFailureStep($step)
+    {
+        $this->failureStep = $step;
+    }
+
+    public function getFailureStep()
+    {
+        return $this->failureStep;
     }
 
     /**
