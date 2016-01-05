@@ -12,8 +12,15 @@ class Scenario
     private $line;
     private $tags;
     private $loopCount;
+
+    /** @var  bool */
     private $screenshotExists;
+
+    /** @var  string */
     private $screenshotPath;
+
+    /** @var  int */
+    private $failureStep;
 
     /**
      * @var bool
@@ -26,7 +33,7 @@ class Scenario
     private $steps;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -34,28 +41,56 @@ class Scenario
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
         $this->name = $name;
     }
 
-    public function setScreenshotProperties($base_path, $screenshotFolder, $featureName, $scenarioName)
+    /**
+     * @param string $base_path
+     * @param string $screenshotFolder
+     * @param string $featureName
+     *
+     * This function will set the properties required for a screenshot
+     * It should be called if a scenario is failed, and in an afterScenario method
+     * (this will ensure that the failure step has been set in an afterStep method)
+     */
+    public function setScreenshotProperties($base_path, $screenshotFolder, $featureName)
     {
-        $this->screenshotPath = $screenshotFolder . str_replace(' ', '', $featureName . '/' . str_replace(' ', '', $scenarioName) . '.png');
+        $this->screenshotPath = $screenshotFolder . str_replace(' ', '', $featureName . '/' . $this->getFailureStep() . '.png');
         $absolutePath = $base_path . '/' . $this->screenshotPath;
         $this->screenshotExists = file_exists($absolutePath);
     }
 
+    /**
+     * @return bool
+     */
     public function doesScreenshotExist()
     {
         return $this->screenshotExists;
     }
 
+    /**
+     * @return string
+     */
     public function getScreenshotPath()
     {
         return $this->screenshotPath;
+    }
+
+    /**
+     * @param int $stepNumber
+     */
+    public function setFailureStepNumber($stepNumber)
+    {
+        $this->failureStep = $stepNumber;
+    }
+
+    public function getFailureStep()
+    {
+        return $this->failureStep;
     }
 
     /**

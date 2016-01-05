@@ -458,7 +458,8 @@ class HTMLFormatter implements Formatter
             $this->passedScenarios[] = $this->currentScenario;
             $this->currentFeature->addPassedScenario();
         } else {
-            $this->currentScenario->setScreenshotProperties($this->printer->getOutputPath(), 'assets/screenshots/', $event->getFeature()->getTitle(), $event->getScenario()->getTitle());
+            //set screenshot properties
+            $this->currentScenario->setScreenshotProperties($this->printer->getOutputPath(), 'assets/screenshots/', $event->getFeature()->getTitle());
             $this->failedScenarios[] = $this->currentScenario;
             $this->currentFeature->addFailedScenario();
         }
@@ -497,6 +498,8 @@ class HTMLFormatter implements Formatter
             $this->passedScenarios[] = $this->currentScenario;
             $this->currentFeature->addPassedScenario();
         } else {
+            //set screenshot properties
+            $this->currentScenario->setScreenshotProperties($this->printer->getOutputPath(), 'assets/screenshots/', $event->getFeature()->getTitle());
             $this->failedScenarios[] = $this->currentScenario;
             $this->currentFeature->addFailedScenario();
         }
@@ -551,6 +554,8 @@ class HTMLFormatter implements Formatter
                     $step->setDefinition($result->getStepDefinition());
                     $exception = $result->getException();
                     if($exception) {
+                        //set the failure step number of the current scenario
+                        $this->currentScenario->setFailureStepNumber($step->getLine());
                         $step->setException($exception->getMessage());
                         $this->failedSteps[] = $step;
                     } else {
